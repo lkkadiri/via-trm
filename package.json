@@ -2,6 +2,9 @@
   "name": "via-trm",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "8.9.2"
+  },
   "dependencies": {
     "lodash": "^4.17.4",
     "material-ui": "^0.20.0",

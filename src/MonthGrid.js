@@ -12,15 +12,21 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
+    padding: 20
   },
   gridList: {
     width: 500,
     height: 200,
     overflowY: 'auto',
+    padding: 0
   },
   titleStyle: {
+    display: 'inline-block',
+    verticalAlign: 'middle',
+    lineHeight: 'normal',
     color: 'rgb(121, 111, 111)',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: 12
   },
   subHStyle: {
     textAlign: 'left',
@@ -46,6 +52,7 @@ export default class MonthGrid extends Component {
 
   componentWillMount(){
     let yrCt = 1;
+    // Construct the months data
     this.props.years.forEach((yr) => {
       _.each(months, (value, key) => {
         let month = {};
@@ -70,7 +77,7 @@ export default class MonthGrid extends Component {
       await this.setState({
         month1: key
       })
-    }else if(this.state.clickCount === 2){
+    } else if(this.state.clickCount === 2){
       // Grey out the months in between
       await this.setState({
         month2: key
@@ -78,6 +85,7 @@ export default class MonthGrid extends Component {
       let month1 = this.state.month1;
       let month2 = this.state.month2;
 
+      // Handle the case when a later month is selected first
       if(month2 < month1){
         let t = month2;
         month2 = month1;
@@ -87,11 +95,9 @@ export default class MonthGrid extends Component {
       for(let i = month1 + 1; i < month2; i++){
         let monthBtw = _.find(tilesData, {key:i});
         monthBtw.color = midTileColor;
-        await this.setState((prevState) => ({
-          months: tilesData
-        }));
+        await this.setState({months: tilesData});
       }
-    }else if(this.state.clickCount === 3){
+    } else if(this.state.clickCount === 3){
       _.map(tilesData, (month) => {
           month.color = defaultTileColor;
       })
@@ -102,15 +108,14 @@ export default class MonthGrid extends Component {
       }));
     }
 
+    // Set the color of the month that was selected
     let month = _.find(tilesData, {key:key});
     if(month.color === defaultTileColor){
       month.color = selectedTileColor;
     }else{
       month.color = defaultTileColor;
     }
-    this.setState((prevState) => ({
-      months: tilesData
-    }));
+    this.setState({months: tilesData});
   }
 
   render() {
