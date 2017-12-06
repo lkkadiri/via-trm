@@ -118,6 +118,7 @@ export default class MonthGrid extends Component {
       <div style={styles.root}>
         {_.chunk(this.state.months, 12).map((months, index) => (
           <GridList
+            key={this.props.years[index]}
             cols={6}
             cellHeight={'auto'}
             style={styles.gridList}
